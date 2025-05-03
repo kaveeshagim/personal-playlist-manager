@@ -1,0 +1,76 @@
+# ============================
+# 🔹 .NET / C# API (server/)
+# ============================
+
+# Build results
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# VS Code settings
+.vscode/
+
+# Mac/Linux system files
+.DS_Store
+*.swp
+
+# ASP.NET secrets
+secrets.json
+
+# SQLite database file
+*.db
+*.db-shm
+*.db-wal
+
+# Entity Framework Migrations binary junk
+Migrations/
+
+# Logs
+*.log
+
+# dotenv
+.env
+
+# IIS / Azure
+wwwroot/
+node_modules/
+
+# Rider/JetBrains
+.idea/
+
+# ============================
+# 🔹 Angular App (client/)
+# ============================
+
+# compiled output
+dist/
+build/
+out-tsc/
+
+# Node dependencies
+node_modules/
+
+# IDEs and Editors
+.vscode/
+*.sublime*
+*.sw?
+
+# Mac system files
+.DS_Store
+
+# Angular & environment files
+.angular/
+.env
+.env.*.local
+*.local
+
+# misc
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

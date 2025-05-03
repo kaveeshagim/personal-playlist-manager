@@ -1,0 +1,41 @@
+# Build results
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# VS Code settings
+.vscode/
+
+# Mac/Linux system files
+.DS_Store
+*.swp
+
+# ASP.NET secrets
+secrets.json
+
+# SQLite database file
+*.db
+*.db-shm
+*.db-wal
+
+# Entity Framework Migrations binary junk
+Migrations/
+
+# Logs
+*.log
+
+# dotenv
+.env
+
+# IIS / Azure
+wwwroot/
+node_modules/
+
+# Rider/JetBrains
+.idea/

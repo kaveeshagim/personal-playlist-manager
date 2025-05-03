@@ -1,0 +1,27 @@
+<h2>Create New Playlist</h2>
+<form (ngSubmit)="addPlaylist()" #playlistForm="ngForm">
+  <label>
+    Name:
+    <input type="text" name="name" [(ngModel)]="newPlaylist.name" required />
+  </label>
+  <br />
+  <label>
+    Description:
+    <input
+      type="text"
+      name="description"
+      [(ngModel)]="newPlaylist.description"
+    />
+  </label>
+  <br />
+  <button type="submit" [disabled]="!playlistForm.valid">Add Playlist</button>
+</form>
+
+<hr />
+
+<h2>All Playlists</h2>
+<ul>
+  <li *ngFor="let playlist of playlists">
+    {{ playlist.name }} - {{ playlist.description }}
+  </li>
+</ul>
