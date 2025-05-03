@@ -1,27 +1,132 @@
-<h2>Create New Playlist</h2>
-<form (ngSubmit)="addPlaylist()" #playlistForm="ngForm">
-  <label>
-    Name:
-    <input type="text" name="name" [(ngModel)]="newPlaylist.name" required />
-  </label>
-  <br />
-  <label>
-    Description:
-    <input
-      type="text"
-      name="description"
-      [(ngModel)]="newPlaylist.description"
-    />
-  </label>
-  <br />
-  <button type="submit" [disabled]="!playlistForm.valid">Add Playlist</button>
-</form>
+<mat-grid-list cols="2" rowHeight="1:1">
+  <mat-grid-tile>
+    <h2 style="text-align: center">Add Playlist</h2>
+    <form
+      (ngSubmit)="addPlaylist()"
+      style="
+        max-width: 400px;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+      "
+    >
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label>Playlist Name</mat-label>
+        <input matInput [(ngModel)]="newPlaylist.name" name="name" required />
+      </mat-form-field>
 
-<hr />
+      <mat-form-field
+        appearance="outline"
+        style="width: 100%; margin-top: 1rem"
+      >
+        <mat-label>Description</mat-label>
+        <input
+          matInput
+          [(ngModel)]="newPlaylist.description"
+          name="description"
+        />
+      </mat-form-field>
 
-<h2>All Playlists</h2>
-<ul>
-  <li *ngFor="let playlist of playlists">
-    {{ playlist.name }} - {{ playlist.description }}
-  </li>
-</ul>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        style="margin-top: 1rem"
+      >
+        Add Playlist
+      </button>
+    </form>
+  </mat-grid-tile>
+  <mat-grid-tile
+    ><div *ngFor="let playlist of playlists" style="margin-bottom: 1rem">
+      <mat-card>
+        <mat-card-title>
+          {{ playlist.name }}
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="deletePlaylist(playlist.id)"
+            style="float: right"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-title>
+        <mat-card-subtitle>{{ playlist.description }}</mat-card-subtitle>
+        <mat-card-content *ngIf="playlist.songs && playlist.songs.length > 0">
+          <h4>Songs</h4>
+          <ul style="padding-left: 1rem">
+            <li *ngFor="let song of playlist.songs">
+              🎵 {{ song.title }} by {{ song.artist }}
+              <small>({{ song.genre }} / {{ song.mood }})</small>
+              <button
+                mat-icon-button
+                color="warn"
+                (click)="deleteSong(playlist.id, song.id)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </li>
+          </ul>
+        </mat-card-content>
+        <mat-card-content
+          *ngIf="!playlist.songs || playlist.songs.length === 0"
+        >
+          <p>No songs in this playlist yet.</p>
+        </mat-card-content>
+        <ng-container
+          *ngIf="!newSongs[playlist.id] && (newSongs[playlist.id] = {})"
+        ></ng-container>
+        <mat-card-actions>
+          <form
+            (ngSubmit)="addSongToPlaylist(playlist.id)"
+            #form="ngForm"
+            style="margin-top: 1rem"
+          >
+            <mat-form-field style="width: 100%">
+              <mat-label>Song Title</mat-label>
+              <input
+                matInput
+                [(ngModel)]="newSongs[playlist.id].title"
+                name="title{{ playlist.id }}"
+                required
+              />
+            </mat-form-field>
+
+            <mat-form-field style="width: 100%">
+              <mat-label>Artist</mat-label>
+              <input
+                matInput
+                [(ngModel)]="newSongs[playlist.id].artist"
+                name="artist{{ playlist.id }}"
+                required
+              />
+            </mat-form-field>
+
+            <mat-form-field style="width: 100%">
+              <mat-label>Genre</mat-label>
+              <input
+                matInput
+                [(ngModel)]="newSongs[playlist.id].genre"
+                name="genre{{ playlist.id }}"
+              />
+            </mat-form-field>
+
+            <mat-form-field style="width: 100%">
+              <mat-label>Mood</mat-label>
+              <input
+                matInput
+                [(ngModel)]="newSongs[playlist.id].mood"
+                name="mood{{ playlist.id }}"
+              />
+            </mat-form-field>
+
+            <button mat-raised-button color="accent" type="submit">
+              Add Song
+            </button>
+          </form>
+        </mat-card-actions>
+      </mat-card>
+    </div></mat-grid-tile
+  >
+</mat-grid-list>

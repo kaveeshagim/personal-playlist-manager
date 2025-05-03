@@ -22,12 +22,17 @@ export interface Song {
   providedIn: 'root',
 })
 export class PlaylistService {
-  private apiUrl = 'https://localhost:5001/api/Playlists';
+  private apiUrl = 'https://localhost:5001/api/playlists';
 
   constructor(private http: HttpClient) {}
 
   getPlaylists(): Observable<Playlist[]> {
-    return this.http.get<Playlist[]>(this.apiUrl);
+    const response = this.http.get<Playlist[]>(this.apiUrl);
+    response.subscribe({
+      next: (data) => console.log('Playlists loaded:', data),
+      error: (err) => console.error('Failed to load playlists', err),
+    });
+    return response;
   }
 
   addPlaylist(playlist: Partial<Playlist>): Observable<Playlist> {
@@ -36,5 +41,17 @@ export class PlaylistService {
 
   deletePlaylist(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  addSong(playlistId: number, song: Partial<Song>): Observable<Song> {
+    return this.http.post<Song>(
+      `${this.apiUrl.replace('/playlists', '/songs')}/${playlistId}`,
+      song
+    );
+  }
+  deleteSong(playlistId: number, songId: number): Observable<void> {
+    return this.http.delete<void>(
+      `${this.apiUrl.replace('/playlists', '/songs')}/${playlistId}/${songId}`
+    );
   }
 }

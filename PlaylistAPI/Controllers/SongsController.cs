@@ -20,7 +20,7 @@ namespace PlaylistAPI.Controllers
         }
 
         [HttpPost("{playlistId}")]
-        public async Task<IActionResult> AddSong(int playlistId, Song song)
+        public async Task<IActionResult> AddSong(int playlistId, [FromBody] Song song)
         {
             var playlist = await _context.Playlists.FindAsync(playlistId);
             if (playlist == null) return NotFound();
