@@ -36,6 +36,13 @@ builder.Services.AddDbContext<PlaylistContext>(options =>
 
 var app = builder.Build();
 
+// Ensure database is created
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<PlaylistContext>();
+    db.Database.EnsureCreated();
+}
+
 // Enable Swagger middleware
 if (app.Environment.IsDevelopment())
 {

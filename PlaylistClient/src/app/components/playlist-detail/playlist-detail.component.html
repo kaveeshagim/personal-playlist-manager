@@ -1,1 +1,27 @@
-<p>playlist-detail works!</p>
+<mat-card>
+  <mat-card-title>{{ playlist.name }}</mat-card-title>
+  <mat-card-subtitle>{{ playlist.description }}</mat-card-subtitle>
+
+  <mat-card-content *ngIf="playlist.songs && playlist.songs.length > 0">
+    <ul style="padding-left: 1rem">
+      <li *ngFor="let song of playlist.songs">
+        🎵 {{ song.title }} by {{ song.artist }}
+        <small>({{ song.genre }} / {{ song.mood }})</small>
+        <button mat-icon-button color="warn" (click)="deleteSong(song.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </li>
+    </ul>
+  </mat-card-content>
+
+  <mat-card-content *ngIf="!playlist.songs || playlist.songs.length === 0">
+    <p>No songs in this playlist yet.</p>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <app-song-form
+      [playlistId]="playlist.id"
+      (songAdded)="onSongAdded($event)"
+    ></app-song-form>
+  </mat-card-actions>
+</mat-card>
