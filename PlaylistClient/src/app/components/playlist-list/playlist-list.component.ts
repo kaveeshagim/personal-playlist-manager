@@ -37,7 +37,14 @@ export class PlaylistListComponent implements OnInit {
   }
   loadPlaylists() {
     this.playlistService.getPlaylists().subscribe({
-      next: (data) => (this.playlists = data),
+      next: (data) => {
+        this.playlists = data;
+        for (const p of this.playlists) {
+          if (!this.newSongs[p.id]) {
+            this.newSongs[p.id] = {};
+          }
+        }
+      },
       error: (err) => console.error('Failed to load playlists', err),
     });
   }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface Playlist {
   id: number;
@@ -22,17 +23,19 @@ export interface Song {
   providedIn: 'root',
 })
 export class PlaylistService {
-  private apiUrl = 'https://localhost:5001/api/playlists';
+  private apiUrl = `${environment.apiUrl}/playlists`;
 
   constructor(private http: HttpClient) {}
 
   getPlaylists(): Observable<Playlist[]> {
-    const response = this.http.get<Playlist[]>(this.apiUrl);
-    response.subscribe({
-      next: (data) => console.log('Playlists loaded:', data),
-      error: (err) => console.error('Failed to load playlists', err),
-    });
-    return response;
+    return this.http
+      .get<Playlist[]>(this.apiUrl)
+      .pipe(
+        tap({
+          next: (data) => console.log('Playlists loaded:', data),
+          error: (err) => console.error('Failed to load playlists', err),
+        })
+      );
   }
 
   addPlaylist(playlist: Partial<Playlist>): Observable<Playlist> {

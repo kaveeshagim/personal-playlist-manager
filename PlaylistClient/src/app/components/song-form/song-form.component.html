@@ -1,1 +1,23 @@
-<p>song-form works!</p>
+<form (ngSubmit)="addSong()" #form="ngForm">
+  <mat-form-field style="width: 100%">
+    <mat-label>Song Title</mat-label>
+    <input matInput [(ngModel)]="newSong.title" name="title" required />
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%">
+    <mat-label>Artist</mat-label>
+    <input matInput [(ngModel)]="newSong.artist" name="artist" required />
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%">
+    <mat-label>Genre</mat-label>
+    <input matInput [(ngModel)]="newSong.genre" name="genre" />
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%">
+    <mat-label>Mood</mat-label>
+    <input matInput [(ngModel)]="newSong.mood" name="mood" />
+  </mat-form-field>
+
+  <button mat-raised-button color="accent" type="submit">Add Song</button>
+</form>

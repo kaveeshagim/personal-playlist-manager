@@ -74,9 +74,6 @@
         >
           <p>No songs in this playlist yet.</p>
         </mat-card-content>
-        <ng-container
-          *ngIf="!newSongs[playlist.id] && (newSongs[playlist.id] = {})"
-        ></ng-container>
         <mat-card-actions>
           <form
             (ngSubmit)="addSongToPlaylist(playlist.id)"
